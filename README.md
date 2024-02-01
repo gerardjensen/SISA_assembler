@@ -29,3 +29,6 @@ The assembler provides a handful of flags
 `-h` displays the help message
 
 `-v`    Divides the output memory files in two (for `MEM0` and `MEM1`)
+
+## Examples
+You can find two examples in the [asm](./asm) directory.
