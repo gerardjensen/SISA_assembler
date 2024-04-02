@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <iostream>
 #include <fstream>
 #include "constants.h"
@@ -7,6 +8,8 @@
 void saveRam(uint8_t* ram, size_t len, char* path, const uint8_t &flags)
 {
 	bool div = flags & MEM_DIV; 
+  bool raw_hex = flags & RAW_HEX;
+
 	if(!div)
 	{
 		std::ofstream outputFile(path);
@@ -16,7 +19,22 @@ void saveRam(uint8_t* ram, size_t len, char* path, const uint8_t &flags)
 			exit(1);
 		}
 
-		outputFile.write((char*)ram,len);
+    if(raw_hex)
+    {
+      for(size_t i = 0; i<len; i+=2)
+	    {
+		    uint8_t b0 = ram[i];
+		    uint8_t b1 = ram[i+1];
+        uint16_t v = b0 | (b1 << 8);
+
+        char line_buff[8];
+
+        sprintf(line_buff, "0x%04X\n", v);
+        outputFile.write(line_buff,7); 
+	    }   
+    }
+    else
+		  outputFile.write((char*)ram,len);
 
 		outputFile.flush();
 		outputFile.close();
@@ -43,17 +61,32 @@ void saveRam(uint8_t* ram, size_t len, char* path, const uint8_t &flags)
 		exit(1);
 	}
 
-	for(size_t i = 0; i<len; i+=2)
-	{
-		uint8_t b0 = ram[i];
-		uint8_t b1 = ram[i+1];	
+  if(raw_hex)
+  {
+    for(size_t i = 0; i<len; i+=2)
+	  {
+		  uint8_t b0 = ram[i];
+		  uint8_t b1 = ram[i+1];
+      char line_buff[6];
+      sprintf(line_buff, "0x%02X\n", b0);
+      of0.write(line_buff,5); 
+      
+      sprintf(line_buff, "0x%02X\n", b1);
+      of1.write(line_buff,5); 
+	  }
+  }
+  else
+  {
+    for(size_t i = 0; i<len; i+=2)
+    {
+      uint8_t b0 = ram[i];
+      uint8_t b1 = ram[i+1];	
 
-		of0.write((char*)&b0,1);
-		of1.write((char*)&b1,1);
-	}
+      of0.write((char*)&b0,1);
+      of1.write((char*)&b1,1);
+    }
+  }
 
-	of0.flush();
-	of1.flush();
 	of0.close();
 	of1.close();	
 }

@@ -23,6 +23,7 @@ void printHelp(void)
 
 	printf("\nFlags:\n");
 	printf("  -v    Divides the output memory files in two (MEM0 and MEM1)\n");
+	printf("  -H    Saves the output as raw ASCII hex\n");
 	printf("  -h    Displays the help message\n");
 
 }
