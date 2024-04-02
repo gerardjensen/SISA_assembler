@@ -26,9 +26,11 @@ The assembler provides a handful of flags
 
 ### Flags
 
-`-h` displays the help message
-
 `-v`    Divides the output memory files in two (for `MEM0` and `MEM1`)
+
+`-H`    Saves the output as raw ASCII hex
+
+`-h` displays the help message
 
 ## Examples
 You can find two examples in the [asm](./asm) directory.

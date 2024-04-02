@@ -14,7 +14,7 @@ extern void unrecognisedFlag(char* &c);
 extern char* next_arg_secure(int &i, const int &argc, char** &argv);
 
 extern const uint8_t MEM_DIV;
-//extern const uint8_t RAW_HEX;
+extern const uint8_t RAW_HEX;
 extern const uint8_t PRINT_LABELS;
 extern const uint8_t T_MEM_SET;
 extern const uint8_t D_MEM_SET;

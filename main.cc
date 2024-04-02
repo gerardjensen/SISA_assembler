@@ -5,7 +5,9 @@
 #include "ram_saver.h"
 #include "line_processer.h"
 #include "constants.h"
-#include "main.h"
+
+const char* defalut_output_file_path = "output.bin";
+const char* defalut_output_file_path_hex = "output.hex";
 
 int main(int argc, char** argv)
 {
@@ -173,8 +175,12 @@ instruction_check:
 		printf("%s: Missing .end directive\n",prog_name);
 		exit(1);
 	}
-	
-	saveRam(RAM, 0x10000, (flags & O_FILE_SET) ? outputFilePath : (char*)defalut_output_file_path, flags);
+
+  char* out_file = (char*)defalut_output_file_path;
+  if(flags & O_FILE_SET) out_file = outputFilePath;
+  else if(flags & RAW_HEX) out_file = (char*)defalut_output_file_path_hex;
+
+	saveRam(RAM, 0x10000, out_file, flags);
 	
 	if((flags & PRINT_LABELS) == 0) return 0;
 

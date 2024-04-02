@@ -1,5 +1,4 @@
 #include <cstring>
-#include <fstream>
 #include <iomanip> // for int_to_hex
 #include <regex>
 

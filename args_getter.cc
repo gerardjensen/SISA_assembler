@@ -7,7 +7,7 @@
 #include "info.h"
 
 const uint8_t MEM_DIV      = 0b00000001;
-//const uint8_t RAW_HEX      = 0b00000010;
+const uint8_t RAW_HEX      = 0b00000010;
 const uint8_t PRINT_LABELS = 0b00000100;
 const uint8_t T_MEM_SET    = 0b10000000;
 const uint8_t D_MEM_SET    = 0b01000000;
@@ -77,9 +77,10 @@ void getArgs(const int &argc, char** &argv,
 				if(flags & MEM_DIV) goto repeated_flags;
 				flags = flags | MEM_DIV;
 				break;
-			//case 'r':
-			//	flags = flags | RAW_HEX;
-			//	break;
+			case 'H':
+				if(flags & RAW_HEX) goto repeated_flags;
+				flags = flags | RAW_HEX;
+				break;
 
 			default:
 				unrecognisedFlag(arg);
